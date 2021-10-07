@@ -11,4 +11,7 @@ const hashPassword = async (plainPassword: string) => {
   }
 };
 
-export { hashPassword };
+const comparePassword = (plainPassword: string, hashPassword: string) =>
+  bcrypt.compare(plainPassword, hashPassword);
+
+export { hashPassword, comparePassword };

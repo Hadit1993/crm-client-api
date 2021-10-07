@@ -1,4 +1,4 @@
-import { model, Model, Schema } from "mongoose";
+import { Document, model, Model, Schema, Types } from "mongoose";
 
 interface IUser {
   name: string;
@@ -51,4 +51,10 @@ UserSchema.methods.toJSON = function () {
 };
 
 const UserModel = model<IUser>("User", UserSchema);
-export { UserModel, IUser };
+
+type UserDocument = Document<any, any, IUser> &
+  IUser & {
+    _id: Types.ObjectId;
+  };
+
+export { UserModel, IUser, UserDocument };

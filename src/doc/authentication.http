@@ -1,0 +1,21 @@
+
+### user registration endpoint
+POST http://localhost:3001/api/v1/user
+Content-Type: application/json
+
+{
+
+
+}
+
+
+### user login endpoint
+POST http://localhost:3001/api/v1/user/login
+Content-Type: application/json
+
+{
+"email": "hadit19933@gmail.com",
+"password": "12345678"
+
+}
+
