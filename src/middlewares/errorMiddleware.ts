@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { parseValidationError } from "../helpers/parsingErrorHelper";
+import { parseValidationError } from "../helpers/parsingError.helper";
 import BaseResponse from "../utils/BaseResponse";
 
 export default function errorMiddleWare(

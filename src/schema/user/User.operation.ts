@@ -32,4 +32,16 @@ const getUserByPhone = async (phone: string) => {
   });
 };
 
-export { insertUser, getUserByEmail, getUserByPhone };
+const storeRefreshJWT = (id: string, token: string) =>
+  UserModel.findOneAndUpdate(
+    { id },
+    {
+      $set: {
+        "refreshJWT.token": token,
+        "refreshJWT.addedAt": Date.now(),
+      },
+    },
+    { new: true }
+  );
+
+export { insertUser, getUserByEmail, getUserByPhone, storeRefreshJWT };

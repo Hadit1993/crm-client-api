@@ -7,6 +7,10 @@ interface IUser {
   phone?: string;
   email: string;
   password: string;
+  refreshJWT: {
+    token: string;
+    addedAt: Date;
+  };
 }
 
 const UserSchema = new Schema<IUser, Model<IUser>, IUser>({
@@ -41,11 +45,25 @@ const UserSchema = new Schema<IUser, Model<IUser>, IUser>({
     maxlength: 100,
     required: true,
   },
+
+  refreshJWT: {
+    token: {
+      type: String,
+      maxlength: 500,
+      default: "",
+    },
+    addedAt: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+  },
 });
 
 UserSchema.methods.toJSON = function () {
   const user = this.toObject() as any;
   delete user.password;
+  delete user.refreshJWT;
   delete user.__v;
   return user;
 };
