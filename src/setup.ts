@@ -6,6 +6,7 @@ import morgan from "morgan";
 import ticketRouterV1 from "./routers/v1/ticket.router";
 import userRouterV1 from "./routers/v1/user.router";
 import mongoose from "mongoose";
+import tokenRouter from "./routers/v1/token.router";
 
 const setupMiddlewares = (app: express.Express) => {
   config();
@@ -19,6 +20,7 @@ const setupMiddlewares = (app: express.Express) => {
 const setupRouters = (app: express.Express) => {
   app.use("/api/v1/user", userRouterV1);
   app.use("/api/v1/ticket", ticketRouterV1);
+  app.use("/api/v1/tokens", tokenRouter);
 };
 
 const connectMongoDB = () => {

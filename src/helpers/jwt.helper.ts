@@ -30,4 +30,12 @@ const createRefreshJWT = async (payload: { email: string; id: string }) => {
 const verifyAccessToken = (accessToken: string) =>
   jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET as string);
 
-export { createAccessJWT, createRefreshJWT, verifyAccessToken };
+const verifyRefreshToken = (refreshToken: string) =>
+  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET as string);
+
+export {
+  createAccessJWT,
+  createRefreshJWT,
+  verifyAccessToken,
+  verifyRefreshToken,
+};

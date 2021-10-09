@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import { verifyAccessToken } from "../helpers/jwt.helper";
-import { retrieveJWTFromRedis } from "../helpers/redis.helper";
+import {
+  deleteJWTFromRedis,
+  retrieveJWTFromRedis,
+} from "../helpers/redis.helper";
 import BaseResponse from "../utils/BaseResponse";
 import constants from "../utils/constants";
 
@@ -18,7 +21,10 @@ export default async function authorizeUser(
 
     const decoded = verifyAccessToken(token) as JwtPayload;
 
-    if (!decoded["id"]) throw new Error();
+    if (!decoded["id"]) {
+      deleteJWTFromRedis(token);
+      throw new Error();
+    }
     const userId = await retrieveJWTFromRedis(token);
     if (!userId) throw new Error();
     if (userId !== decoded["id"]) throw new Error();

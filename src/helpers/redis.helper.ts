@@ -13,4 +13,6 @@ const retrieveJWTFromRedis = (key: string) => {
   });
 };
 
-export { saveJWTToRedis, retrieveJWTFromRedis };
+const deleteJWTFromRedis = (key: string) => client.del(key);
+
+export { saveJWTToRedis, retrieveJWTFromRedis, deleteJWTFromRedis };
