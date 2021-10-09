@@ -9,8 +9,10 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "rootDir": "src"
+    "rootDir": "src",
+    "typeRoots": ["./types"]
   },
+
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

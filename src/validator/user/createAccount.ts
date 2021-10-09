@@ -1,5 +1,5 @@
 import { body, check } from "express-validator";
-import errorMiddleWare from "../../middlewares/errorMiddleware";
+import errorMiddleWare from "../../middlewares/error.middleware";
 import {
   getUserByEmail,
   getUserByPhone,

@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import errorMiddleWare from "../../middlewares/errorMiddleware";
+import errorMiddleWare from "../../middlewares/error.middleware";
 
 const validateEmail = () =>
   body("email").isEmail().withMessage("email is invalid");

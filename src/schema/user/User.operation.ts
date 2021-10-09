@@ -32,6 +32,17 @@ const getUserByPhone = async (phone: string) => {
   });
 };
 
+const getUserById = async (id: string) => {
+  return new Promise<UserDocument | null>(async (resolve, reject) => {
+    try {
+      const user = await UserModel.findById(id);
+      resolve(user);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const storeRefreshJWT = (id: string, token: string) =>
   UserModel.findOneAndUpdate(
     { id },
@@ -44,4 +55,10 @@ const storeRefreshJWT = (id: string, token: string) =>
     { new: true }
   );
 
-export { insertUser, getUserByEmail, getUserByPhone, storeRefreshJWT };
+export {
+  insertUser,
+  getUserByEmail,
+  getUserByPhone,
+  storeRefreshJWT,
+  getUserById,
+};
