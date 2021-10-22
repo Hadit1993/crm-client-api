@@ -1,5 +1,6 @@
 import { body, check } from "express-validator";
 import errorMiddleWare from "../../middlewares/error.middleware";
+import { validatePassword } from "./common";
 import {
   getUserByEmail,
   getUserByPhone,
@@ -41,18 +42,13 @@ const registerValidateEmail = () =>
       else return true;
     });
 
-const registerValidatePassword = () =>
-  body("password")
-    .isLength({ min: 8, max: 100 })
-    .withMessage("password must be between 8 and 100 characters long");
-
 const registerValidations = [
   registerValidateName("name"),
   registerValidateName("company"),
   registerValidateAddress(),
   registerValidatePhone(),
   registerValidateEmail(),
-  registerValidatePassword(),
+  validatePassword(),
   errorMiddleWare,
 ];
 

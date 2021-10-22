@@ -19,7 +19,16 @@ Content-Type: application/json
 
 }
 
+### reset password endpoint
+POST http://localhost:3001/api/v1/user/reset-password
+Content-Type: application/json
+
+{
+"email": "hadit1993@gmail.com"
+}
+
 ### get token endpoint
 GET http://localhost:3001/api/v1/tokens/fresh-access-jwt
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhZGl0MTk5M0BnbWFpbC5jb20iLCJpZCI6IjYxNWRkZDg3ZjM1MjczYjZkMzI1OGQ2MyIsImlhdCI6MTYzMzgwNjU0MiwiZXhwIjoxNjM2Mzk4NTQyfQ.W8utC0jhrPZyZMMksvnkMl_iamnH8Pt6OcwOYQuUUM4
+
 

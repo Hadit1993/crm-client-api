@@ -1,30 +1,54 @@
-import { json, Request, Response } from "express";
+import { Request, Response } from "express";
 import { comparePassword } from "../../helpers/bcrypt.helper";
 import { createAccessJWT, createRefreshJWT } from "../../helpers/jwt.helper";
 import { getUserByEmail } from "../../schema/user/User.operation";
+import { UserDocument } from "../../schema/user/User.schema";
 import BaseResponse from "../../utils/BaseResponse";
 
-export default async function login(request: Request, response: Response) {
-  const baseResponse: BaseResponse = new BaseResponse({});
-
-  const { email, password } = request.body;
-
+export default async function login(req: Request, res: Response) {
   try {
-    const user = await getUserByEmail(email);
-    if (!user) throw { statusCode: 404, message: "user not found" };
-    const isUserValid = await comparePassword(password, user.password);
-    if (!isUserValid) throw { message: "email and password do not match" };
-    const accessToken = createAccessJWT({ email, id: user.id });
-    const refreshToken = await createRefreshJWT({ email, id: user.id });
-    baseResponse.success = true;
-    baseResponse.data = { user, accessToken, refreshToken };
-    baseResponse.message = "user signed in successfully";
-    response.json(baseResponse);
+    await tryLogin(req, res);
   } catch (error: any) {
-    const statusCode = error.statusCode || 400;
-    baseResponse.success = false;
-    baseResponse.statusCode = statusCode;
-    baseResponse.message = error.message;
-    response.status(statusCode).json(baseResponse);
+    handleError(error, res);
   }
 }
+
+const tryLogin = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const user = await getUser(email);
+  await checkUserValidation(password, user);
+  const baseResponse = calculateResponse(email, user);
+  res.json(baseResponse);
+};
+
+const getUser = async (email: string) => {
+  const user = await getUserByEmail(email);
+  if (!user) throw { statusCode: 404, message: "user not found" };
+  return user;
+};
+
+const checkUserValidation = async (password: string, user: UserDocument) => {
+  const isUserValid = await comparePassword(password, user.password);
+  if (!isUserValid) throw { message: "email and password do not match" };
+};
+
+const calculateResponse = async (email: string, user: UserDocument) => {
+  const accessToken = createAccessJWT({ email, id: user.id });
+  const refreshToken = await createRefreshJWT({ email, id: user.id });
+  const baseResponse = new BaseResponse({
+    data: { user, accessToken, refreshToken },
+    message: "user signed in successfully",
+  });
+  return baseResponse;
+};
+
+const handleError = (error: any, res: Response) => {
+  const statusCode = error.statusCode || 400;
+  const baseResponse = new BaseResponse({
+    success: false,
+    statusCode,
+    message: error.message,
+  });
+
+  res.status(statusCode).json(baseResponse);
+};
