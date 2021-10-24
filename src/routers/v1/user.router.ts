@@ -2,6 +2,7 @@ import { Router } from "express";
 import createAccount from "../../api/user/createAccount";
 import getProfile from "../../api/user/getProfile";
 import login from "../../api/user/login";
+import logout from "../../api/user/logout";
 import resetPassword from "../../api/user/resetPassword";
 import updatePassword from "../../api/user/updatePassword";
 import authorizeUser from "../../middlewares/authorization.middleware";
@@ -24,5 +25,7 @@ userRouterV1
   .route("/reset-password")
   .post(resetPasswordValidation, resetPassword)
   .patch(updatePasswordValidations, updatePassword);
+
+userRouterV1.delete("/logout", authorizeUser, logout);
 
 export default userRouterV1;
