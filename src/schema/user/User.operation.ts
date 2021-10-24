@@ -55,10 +55,23 @@ const storeRefreshJWT = (id: string, token: string) =>
     { new: true }
   );
 
+const insertNewPassword = (email: string, newPassword: string) => {
+  return UserModel.updateOne(
+    { email },
+    {
+      $set: {
+        password: newPassword,
+      },
+    },
+    { new: true }
+  );
+};
+
 export {
   insertUser,
   getUserByEmail,
   getUserByPhone,
   storeRefreshJWT,
   getUserById,
+  insertNewPassword,
 };

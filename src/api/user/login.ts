@@ -17,7 +17,7 @@ const tryLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await getUser(email);
   await checkUserValidation(password, user);
-  const baseResponse = calculateResponse(email, user);
+  const baseResponse = await calculateResponse(email, user);
   res.json(baseResponse);
 };
 
