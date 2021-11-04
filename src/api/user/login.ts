@@ -36,7 +36,7 @@ const calculateResponse = async (email: string, user: UserDocument) => {
   const accessToken = createAccessJWT({ email, id: user.id });
   const refreshToken = await createRefreshJWT({ email, id: user.id });
   const baseResponse = new BaseResponse({
-    data: { user, accessToken, refreshToken },
+    data: { accessToken, refreshToken },
     message: "user signed in successfully",
   });
   return baseResponse;

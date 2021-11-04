@@ -14,7 +14,7 @@ export default class BaseResponse {
   }) {
     this.data = props.data;
     this.success = props.success === undefined ? true : props.success;
-    this.statusCode = props.statusCode || 200;
+    this.statusCode = props.statusCode || (this.success ? 200 : 400);
     this.message =
       props.message ||
       (this.success ? "request was successful" : constants.generalError);

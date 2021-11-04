@@ -1,0 +1,11 @@
+
+### user login endpoint
+POST http://localhost:3001/api/v1/ticket
+Content-Type: application/json
+
+{
+"subject": "I have a problem",
+"sender": "Hadit1993",
+"message": "I'm very hot. what should I do?"
+
+}

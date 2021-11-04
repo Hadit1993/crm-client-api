@@ -15,8 +15,8 @@ export default async function createAccount(req: Request, res: Response) {
 
 const tryCreateAccount = async (req: Request, res: Response) => {
   const hashedPassword = await getHashedPassword(req);
-  const result = await createUser(req, hashedPassword);
-  const response = assembleResponse(result);
+  await createUser(req, hashedPassword);
+  const response = assembleResponse();
   res.status(201).json(response);
 };
 
@@ -33,10 +33,9 @@ const createUser = async (req: Request, hashedPassword: string) => {
   return result;
 };
 
-const assembleResponse = (result: UserDocument) => {
+const assembleResponse = () => {
   const statusCode = 201;
   const baseResponse = new BaseResponse({
-    data: result,
     message: "new user created",
     statusCode,
   });
