@@ -1,11 +1,10 @@
 # CRM Client side API
 
-This api is a part of create CRM Ticket system with MERN stack from scratch tutorial series.
-Link for the series is https://youtu.be/XWbEzWSKBfs
+
 
 ## How to use
 
-- run `git clone https://github.com/DentedCode/client-api.git`
+- run `git clone https://github.com/Hadit1993/crm-client-api.git`
 - run `npm install`
 - run `npm start`
 
