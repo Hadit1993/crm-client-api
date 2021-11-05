@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { emailProcessor } from "../../helpers/emailHelper";
+import { emailProcessor } from "../../helpers/email.helper";
 import { setPasswordResetPin } from "../../schema/resetPin/ResetPin.operation";
 import {
   IResetPin,

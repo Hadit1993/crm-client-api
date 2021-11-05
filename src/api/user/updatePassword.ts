@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt.helper";
-import { notifyPasswordUpdate } from "../../helpers/emailHelper";
+import { notifyPasswordUpdate } from "../../helpers/email.helper";
 import {
   deleteResetPin,
   validatePinWithEmail,
